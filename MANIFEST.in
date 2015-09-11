@@ -1,0 +1,7 @@
+include LICENSE
+include test/Material/*.json
+include test/Material/*.patch
+include doc/_build/man/*.1
+include doc/_build/html/*
+include doc/_build/html/_sources/*.txt
+include doc/_build/html/_static/*
