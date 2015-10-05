@@ -2,17 +2,23 @@ from __future__ import print_function, unicode_literals
 
 try:
     import coverage
+
     cov = coverage.coverage()
 except ImportError:
     class DummyCoverage(object):
         def start(self):
             pass
+
         def stop(self):
             pass
+
         def save(self):
             pass
+
         def report(self, *a, **k):
             pass
+
+
     cov = DummyCoverage()
 
 cov.start()
@@ -26,14 +32,15 @@ MATERIAL_PATH = os.path.join(HERE, 'Material')
 sys.path.insert(0, os.path.join(DOTDOT, 'src'))
 import json_delta
 
+
 def gather_material(dr=MATERIAL_PATH):
     files = set(os.listdir(dr))
     i = 0
     for f in files.copy():
         if re.search(
-            r'^(?:(?:case|diff|target)_\d{2}.json|udiff_\d{2}.patch)$', f
+                r'^(?:(?:case|diff|target)_\d{2}.json|udiff_\d{2}.patch)$', f
         ) is None:
-            files.discard(f)            
+            files.discard(f)
     while True:
         out = i
         if not files:
@@ -47,6 +54,7 @@ def gather_material(dr=MATERIAL_PATH):
             yield out
         i += 1
 
+
 def load_material(category, index):
     ext = 'patch' if category == 'udiff' else 'json'
     fn = os.path.join(
@@ -56,7 +64,8 @@ def load_material(category, index):
     with open(fn) as f:
         return f.read()
 
-MODULES =  (
+
+MODULES = (
     json_delta,
     json_delta._diff,
     json_delta._udiff,
@@ -65,11 +74,13 @@ MODULES =  (
     json_delta._util
 )
 
+
 class DocTestSuite(unittest.TestSuite):
     def __init__(self):
-        return unittest.TestSuite.__init__(self, 
-            (doctest.DocTestSuite(mod) for mod in MODULES)
-        )
+        return unittest.TestSuite.__init__(self,
+                                           (doctest.DocTestSuite(mod) for mod in MODULES)
+                                           )
+
 
 class PerIndexCase(unittest.TestCase):
     def __init__(self, index):
@@ -84,8 +95,10 @@ class PerIndexCase(unittest.TestCase):
         for cat in self.cats:
             setattr(self, cat, load_material(cat, self.index))
 
+
 class MinimalDiffCase(PerIndexCase):
     cats = ('case', 'target')
+
     def runTest(self):
         diff = json_delta.load_and_diff(self.case, self.target,
                                         minimal=True, verbose=True)
@@ -93,8 +106,10 @@ class MinimalDiffCase(PerIndexCase):
             json.loads(self.target), json_delta.patch(json.loads(self.case), diff)
         )
 
+
 class NonMinimalDiffCase(PerIndexCase):
     cats = ('case', 'target')
+
     def runTest(self):
         diff = json_delta.load_and_diff(self.case, self.target,
                                         minimal=False, verbose=True)
@@ -102,16 +117,20 @@ class NonMinimalDiffCase(PerIndexCase):
             json.loads(self.target), json_delta.patch(json.loads(self.case), diff)
         )
 
+
 class PatchCase(PerIndexCase):
     cats = ('case', 'target', 'diff')
+
     def runTest(self):
         self.assertEquals(
             json.loads(self.target),
             json_delta.load_and_patch(self.case, self.diff)
         )
 
+
 class UdiffCase(PerIndexCase):
     cats = ('case', 'target')
+
     def runTest(self):
         udiff = '\n'.join(json_delta.load_and_udiff(self.case, self.target))
         self.assertEquals(
@@ -120,8 +139,10 @@ class UdiffCase(PerIndexCase):
             )
         )
 
+
 class UpatchCase(PerIndexCase):
     cats = ('case', 'target', 'udiff')
+
     def runTest(self):
         self.assertEquals(
             json.loads(self.target), json_delta.load_and_upatch(
@@ -129,8 +150,10 @@ class UpatchCase(PerIndexCase):
             )
         )
 
+
 class ReverseUpatchCase(PerIndexCase):
     cats = ('case', 'target', 'udiff')
+
     def runTest(self):
         self.assertEquals(
             json.loads(self.case), json_delta.load_and_upatch(
@@ -138,10 +161,12 @@ class ReverseUpatchCase(PerIndexCase):
             )
         )
 
+
 INDICES = [x for x in gather_material()]
 INDEX_CASES = [MinimalDiffCase, UdiffCase, NonMinimalDiffCase,
                PatchCase, UpatchCase, ReverseUpatchCase]
-        
+
+
 def desired_attr_sets(attr_args):
     out = set()
     for attrs in attr_args:
@@ -158,6 +183,7 @@ def desired_attr_sets(attr_args):
         out.add(frozenset(attr_set))
     return out
 
+
 def generate_test_cases(attr_check):
     for case_class, case_no in itertools.product(INDEX_CASES, INDICES):
         case = case_class(case_no)
@@ -167,6 +193,7 @@ def generate_test_cases(attr_check):
         for module in MODULES:
             yield doctest.DocTestSuite(module)
 
+
 def check_attr_sets(case_attrs, attr_sets):
     if attr_sets == set():
         return True
@@ -174,6 +201,7 @@ def check_attr_sets(case_attrs, attr_sets):
         if attr_set.issubset(case_attrs):
             return True
     return False
+
 
 def main():
     parser = argparse.ArgumentParser()
@@ -185,11 +213,11 @@ def main():
     attr_check = lambda attrs: check_attr_sets(attrs, attr_sets)
     suite = unittest.TestSuite(generate_test_cases(attr_check))
     unittest.TextTestRunner(descriptions=False,
-                            verbosity=opts.verbose+1).run(suite)
+                            verbosity=opts.verbose + 1).run(suite)
+
 
 if __name__ == '__main__':
     main()
     cov.stop()
     cov.save()
     cov.report(MODULES)
-

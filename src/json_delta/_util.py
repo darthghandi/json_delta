@@ -11,7 +11,7 @@ Utility functions and constants used by all submodules.
 '''
 from __future__ import print_function, unicode_literals
 
-import json
+import ujson
 
 try:
     Basestring = basestring
@@ -54,9 +54,9 @@ def decode_json(file_or_str):
     []
     '''
     if isinstance(file_or_str, Basestring):
-        return json.loads(file_or_str)
+        return ujson.loads(file_or_str)
     else:
-        return json.load(file_or_str)
+        return ujson.load(file_or_str)
 
 def _load_and_func(func, parm1=None, parm2=None, both=None, **flags):
     '''Decode JSON-serialized parameters and apply func to them.'''
@@ -100,8 +100,7 @@ def compact_json_dumps(obj):
     True
     >>>
     '''
-    return json.dumps(obj, indent=None, separators=(',', ':'),
-                      ensure_ascii=False)
+    return ujson.dumps(obj, ensure_ascii=False)
 
 def all_paths(struc):
     '''Generate key-paths to every node in ``struc``.
@@ -250,7 +249,7 @@ def key_tracker(jstring, point=0, start_key=None, special_handler=None):
         elif jstring[point] == '"':
             string_end = skip_string(jstring, point)
             if (key and key[-1] is None):
-                key[-1] = json.loads(jstring[point:string_end])
+                key[-1] = ujson.loads(jstring[point:string_end])
                 while (string_end < len(jstring)
                        and jstring[string_end] in ' \r\n\t:'):
                     string_end += 1

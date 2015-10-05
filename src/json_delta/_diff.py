@@ -6,7 +6,7 @@
 # Copyright 2012‒2015 Philip J. Roberts <himself@phil-roberts.name>.
 # BSD License applies; see the LICENSE file, or
 # http://opensource.org/licenses/BSD-2-Clause
-'''Functions for computing JSON-format diffs.'''
+"""Functions for computing JSON-format diffs."""
 
 from __future__ import print_function, unicode_literals
 from ._util import compact_json_dumps, TERMINALS, NONTERMINALS, Basestring
@@ -20,8 +20,9 @@ try:
 except NameError:
     xrange = range
 
+
 def diff(left_struc, right_struc, minimal=True, verbose=True, key=None):
-    '''Compose a sequence of diff stanzas sufficient to convert the
+    """Compose a sequence of diff stanzas sufficient to convert the
     structure ``left_struc`` into the structure ``right_struc``.  (The
     goal is to add 'necessary and' to 'sufficient' above!).
 
@@ -39,7 +40,7 @@ def diff(left_struc, right_struc, minimal=True, verbose=True, key=None):
     If set to a list, it will be prefixed to every keypath in the
     output.
 
-    '''
+    """
     if key is None:
         key = []
 
@@ -58,7 +59,7 @@ def diff(left_struc, right_struc, minimal=True, verbose=True, key=None):
         my_diff = min(my_diff, [[key[:], copy.copy(right_struc)]],
                       key=lambda x: len(compact_json_dumps(x)))
 
-    if key == []:
+    if not key:
         if len(my_diff) > 1:
             my_diff = sort_stanzas(my_diff)
         if verbose:
@@ -72,8 +73,9 @@ def diff(left_struc, right_struc, minimal=True, verbose=True, key=None):
                   file=sys.stderr)
     return my_diff
 
+
 def needle_diff(left_struc, right_struc, key, minimal=True):
-    '''Returns a diff between ``left_struc`` and ``right_struc``.
+    """Returns a diff between ``left_struc`` and ``right_struc``.
 
     If ``left_struc`` and ``right_struc`` are both serializable as
     arrays, this function will use Needleman-Wunsch sequence alignment
@@ -84,7 +86,7 @@ def needle_diff(left_struc, right_struc, key, minimal=True):
     :func:`diff`, which is mutually recursive with this function and
     :func:`keyset_diff` anyway.
 
-    '''
+    """
     if type(left_struc) not in (list, tuple):
         return keyset_diff(left_struc, right_struc, key, minimal)
     assert type(right_struc) in (list, tuple)
@@ -93,23 +95,23 @@ def needle_diff(left_struc, right_struc, key, minimal=True):
     lastrow = [
         [[key + [sub_i]] for sub_i in range(i)]
         for i in range(len(left_struc), -1, -1)
-    ]
+        ]
 
     def modify_cand():
-        '''Build the candidate diff that involves (potentially) modifying an
-        element.'''
+        """Build the candidate diff that involves (potentially) modifying an
+        element."""
         if col_i + 1 < len(lastrow):
-            return (lastrow[col_i+1] +
+            return (lastrow[col_i + 1] +
                     diff(left_elem, right_elem, key=key + [left_i],
                          minimal=minimal, verbose=False))
 
     def delete_cand():
-        '''Build the candidate diff that involves deleting an element.'''
+        """Build the candidate diff that involves deleting an element."""
         if row:
             return row[0] + [[key + [left_i]]]
 
     def append_cand():
-        '''Build the candidate diff that involves appending an element.'''
+        """Build the candidate diff that involves appending an element."""
         if col_i == down_col:
             return (lastrow[col_i] +
                     [[key + [append_key(lastrow[col_i], left_struc, key)],
@@ -130,8 +132,9 @@ def needle_diff(left_struc, right_struc, key, minimal=True):
         lastrow = row
     return winner
 
+
 def append_key(stanzas, left_struc, keypath=None):
-    '''Get the appropriate key for appending to the sequence ``left_struc``.
+    """Get the appropriate key for appending to the sequence ``left_struc``.
 
     ``stanzas`` should be a diff, some of whose stanzas may modify a
     sequence ``left_struc`` that appears at path ``keypath``.  If any of
@@ -147,7 +150,7 @@ def append_key(stanzas, left_struc, keypath=None):
     >>> append_key([[[2], 'Baz'], [['Quux', 0], 'Foo']], [], ['Quux'])
     1
 
-    '''
+    """
     if keypath is None:
         keypath = []
     addition_key = len(left_struc)
@@ -159,8 +162,9 @@ def append_key(stanzas, left_struc, keypath=None):
             addition_key = prior_key[-1] + 1
     return addition_key
 
+
 def compute_keysets(left_seq, right_seq):
-    '''Compare the keys of ``left_seq`` vs. ``right_seq``.
+    """Compare the keys of ``left_seq`` vs. ``right_seq``.
 
     Determines which keys ``left_seq`` and ``right_seq`` have in
     common, and which are unique to each of the structures.  Arguments
@@ -191,7 +195,7 @@ def compute_keysets(left_seq, right_seq):
     True
     >>> compute_keysets([], ['bar', 'baz']) == (set([]), set([]), {0, 1})
     True
-    '''
+    """
     assert isinstance(left_seq, type(right_seq)), (left_seq, right_seq)
     assert type(left_seq) in NONTERMINALS, left_seq
 
@@ -206,10 +210,11 @@ def compute_keysets(left_seq, right_seq):
     left_only = left_keyset - right_keyset
     right_only = right_keyset - left_keyset
 
-    return (overlap, left_only, right_only)
+    return overlap, left_only, right_only
+
 
 def keyset_diff(left_struc, right_struc, key, minimal=True):
-    '''Return a diff between ``left_struc`` and ``right_struc``.
+    """Return a diff between ``left_struc`` and ``right_struc``.
 
     It is assumed that ``left_struc`` and ``right_struc`` are both
     non-terminal types (serializable as arrays or objects).  Sequences
@@ -220,7 +225,7 @@ def keyset_diff(left_struc, right_struc, key, minimal=True):
     This function probably shouldn't be called directly.  Instead, use
     :func:`udiff`, which will call :func:`keyset_diff` if appropriate
     anyway.
-    '''
+    """
     out = []
     (overlap, left_only, right_only) = compute_keysets(left_struc, right_struc)
     out.extend([[key + [k]] for k in left_only])
@@ -231,8 +236,9 @@ def keyset_diff(left_struc, right_struc, key, minimal=True):
                         minimal, False, sub_key))
     return out
 
+
 def this_level_diff(left_struc, right_struc, key=None, common=None):
-    '''Return a sequence of diff stanzas between the structures
+    """Return a sequence of diff stanzas between the structures
     left_struc and right_struc, assuming that they are each at the
     key-path ``key`` within the overall structure.
 
@@ -244,7 +250,7 @@ def this_level_diff(left_struc, right_struc, key=None, common=None):
     ...                 {'foo': 'bar'}, ['quordle'])
     ...  == [[['quordle', 'baz']]])
     True
-    '''
+    """
     out = []
 
     if key is None:
@@ -268,11 +274,12 @@ def this_level_diff(left_struc, right_struc, key=None, common=None):
     else:
         return []
 
+
 def structure_worth_investigating(left_struc, right_struc):
-    '''Test whether it is worth looking at the internal structure of
+    """Test whether it is worth looking at the internal structure of
     `left_struc` and `right_struc` to see if they can be efficiently
     diffed.
-    '''
+    """
     if type(left_struc) is not type(right_struc):
         return False
     if type(left_struc) in TERMINALS:
@@ -281,15 +288,16 @@ def structure_worth_investigating(left_struc, right_struc):
         return False
     return True
 
+
 def commonality(left_struc, right_struc):
-    '''Return a float between 0.0 and 1.0 representing the amount
+    """Return a float between 0.0 and 1.0 representing the amount
     that the structures left_struc and right_struc have in common.
 
     It is assumed (and ``assert``ed!) that ``left_struc`` and
     ``right_struc`` are of the same type, and non-empty (check this
     using :func:`structure_worth_investigating`).  Return value is
     computed as the fraction (elements in common) / (total elements).
-    '''
+    """
     assert type(left_struc) is type(right_struc), (left_struc, right_struc)
     assert left_struc and right_struc, (left_struc, right_struc)
     if type(left_struc) is dict:
@@ -306,8 +314,9 @@ def commonality(left_struc, right_struc):
 
     return com / tot
 
+
 def split_deletions(stanzas):
-    '''Split a diff into modifications and deletions.
+    """Split a diff into modifications and deletions.
 
     Return value is a 3-tuple of lists: the first is a list of
     stanzas from ``stanzas`` that modify JSON objects, the second is
@@ -315,17 +324,18 @@ def split_deletions(stanzas):
     the second is a list of stanzas which delete elements from
     arrays.
 
-    '''
+    """
     objs = [x for x in stanzas if isinstance(x[0][-1], Basestring)]
     seqs = [x for x in stanzas if isinstance(x[0][-1], int)]
     assert len(objs) + len(seqs) == len(stanzas), stanzas
     seqs.sort(key=len)
     lengths = [len(x) for x in seqs]
     point = bisect.bisect_left(lengths, 2)
-    return (objs, seqs[point:], seqs[:point])
+    return objs, seqs[point:], seqs[:point]
+
 
 def sort_stanzas(stanzas):
-    '''Sort the stanzas in ``diff``.
+    """Sort the stanzas in ``diff``.
 
     Object changes can occur in any order, but deletions from arrays
     have to happen last node first: ['foo', 'bar', 'baz'] -> ['foo',
@@ -337,7 +347,7 @@ def sort_stanzas(stanzas):
     they occur first of all, then modifications/additions on
     arrays, followed by deletions from arrays.
 
-    '''
+    """
     if len(stanzas) == 1:
         return stanzas
     # First we divide the stanzas using split_deletions():

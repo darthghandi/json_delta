@@ -1,22 +1,24 @@
 from __future__ import print_function, unicode_literals
 from copy import deepcopy
-import json
+import ujson
 
 from ._util import Basestring, key_tracker, in_array, nearest_of, follow_path
 from ._diff import sort_stanzas
 from . import _patch
 
+
 def upatch(struc, udiff, reverse=False):
-    '''Apply a patch of the form output by :py:func:`json_delta.udiff()` to the
+    """Apply a patch of the form output by :py:func:`json_delta.udiff()` to the
     structure ``struc``.
-    '''
+    """
     diff = reconstruct_diff(udiff, reverse)
     return _patch.patch(struc, diff)
 
+
 def ellipsis_handler(jstring, point, key):
-    '''Extends :py:func:`_util.key_tracker` to handle the ``...`` construction.'''
+    """Extends :py:func:`_util.key_tracker` to handle the ``...`` construction."""
     if jstring[point] == '.':
-        if point+3 < len(jstring) and jstring[point:point+3] == '...':
+        if point + 3 < len(jstring) and jstring[point:point + 3] == '...':
             point += 3
             if in_array(key) and jstring[point] == '(':
                 increment = ''
@@ -30,36 +32,39 @@ def ellipsis_handler(jstring, point, key):
                 key[-1] += 1
             point -= 1
         else:
-            assert jstring[point-1] in '0123456789'
-            assert jstring[point+1] in '0123456789'
-    return (point, key)
+            assert jstring[point - 1] in '0123456789'
+            assert jstring[point + 1] in '0123456789'
+    return point, key
+
 
 def udiff_key_tracker(udiff, point=0, start_key=None):
-    '''Find points within the udiff where the active keypath changes.'''
+    """Find points within the udiff where the active keypath changes."""
     for point, key in key_tracker(udiff, point, start_key, ellipsis_handler):
         yield point, key
-                
+
+
 def scrub_span(udiff, point, next_point, sigil):
-    span = udiff[point:next_point-1]
-    span = span.replace('\n{}'.format(sigil),'').strip('\r\n\t ')
+    span = udiff[point:next_point - 1]
+    span = span.replace('\n{}'.format(sigil), '').strip('\r\n\t ')
     return span
 
+
 def reconstruct_diff(udiff, reverse=False):
-    '''Turn a udiff back into a JSON-format diff.
+    """Turn a udiff back into a JSON-format diff.
 
     Set ``reverse`` to ``True`` to generate a reverse diff (i.e. swap
     the significance of line-initial ``+`` and ``-``).
 
     Header lines (if present) are ignored:
-    >>> udiff = """--- <stdin>
+
+    >>> udiff = '''--- <stdin>
     ... +++ <stdin>
     ... -false
-    ... +true"""
+    ... +true'''
     >>> reconstruct_diff(udiff)
     [[[], True]]
     >>> reconstruct_diff(udiff, reverse=True)
-    [[[], False]]
-    '''
+    [[[], False]]"""
     del_sigil = '+' if reverse else '-'
     add_sigil = '-' if reverse else '+'
     deletes = []
@@ -70,8 +75,8 @@ def reconstruct_diff(udiff, reverse=False):
     # dec = JSONDecoder()
 
     def scrub_span(point, next_point, sigil):
-        span = udiff[point:next_point-1]
-        span = span.replace('\n{}'.format(sigil),'').strip('\r\n\t ')
+        span = udiff[point:next_point - 1]
+        span = span.replace('\n{}'.format(sigil), '').strip('\r\n\t ')
         return span
 
     def gen_stanzas(point, max_point, adding=True):
@@ -82,10 +87,10 @@ def reconstruct_diff(udiff, reverse=False):
         def build_output():
             span = scrub_span(point, next_point, sigil)
             if span and adding:
-                return (next_key, [list(key), json.loads(span)])
+                return next_key, [list(key), ujson.loads(span)]
             elif span:
-                return (next_key, [list(key)])
-        
+                return next_key, [list(key)]
+
         next_key = top_key = key if (not key or key[-1] is not None) else None
         next_point = origin = point
         for p, next_key in udiff_key_tracker(udiff[origin:max_point], 0, key):
@@ -94,22 +99,22 @@ def reconstruct_diff(udiff, reverse=False):
                 top_key = next_key
                 point = next_point
             if ((not key or key[-1] is not None) and
-                len(key) == len(top_key) == len(next_key)):
+                            len(key) == len(top_key) == len(next_key)):
                 out = build_output()
                 if out is not None:
                     yield out
                 point = next_point
             key = next_key
-            
+
         next_point = max_point
         if (not key or key[-1] is not None) and len(key) == len(top_key):
             out = build_output()
             if out is not None:
                 yield out
 
-    if point + 3 <= len(udiff) and udiff[point:point+3] == '---':
+    if point + 3 <= len(udiff) and udiff[point:point + 3] == '---':
         point = udiff[point:].find('\n') + point + 1
-    if point + 3 <= len(udiff) and udiff[point:point+3] == '+++':
+    if point + 3 <= len(udiff) and udiff[point:point + 3] == '+++':
         point = udiff[point:].find('\n') + point + 1
 
     while point < len(udiff):
@@ -118,7 +123,7 @@ def reconstruct_diff(udiff, reverse=False):
                 assert in_array(add_key)
                 add_key = del_key = max(add_key, del_key)
             max_point = (nearest_of(udiff[point:], '\n{}'.format(del_sigil),
-                                                   '\n{}'.format(add_sigil))
+                                    '\n{}'.format(add_sigil))
                          + point + 1)
             for p, del_key in udiff_key_tracker(udiff[point:max_point], 0, del_key):
                 pass

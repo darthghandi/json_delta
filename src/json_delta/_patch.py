@@ -6,12 +6,13 @@
 # Copyright 2012‒2015 Philip J. Roberts <himself@phil-roberts.name>.
 # BSD License applies; see the LICENSE file, or
 # http://opensource.org/licenses/BSD-2-Clause
-'''Functions for applying JSON-format patches.'''
+"""Functions for applying JSON-format patches."""
 from __future__ import unicode_literals
 import copy
 
+
 def patch(struc, diff, in_place=True):
-    '''Apply the sequence of diff stanzas ``diff`` to the structure
+    """Apply the sequence of diff stanzas ``diff`` to the structure
     ``struc``.
 
     By default, this function modifies ``struc`` in place; set
@@ -28,15 +29,16 @@ def patch(struc, diff, in_place=True):
     []
     >>> wont_change
     [16]
-    '''
+    """
     if not in_place:
         struc = copy.deepcopy(struc)
     for stanza in diff:
         struc = patch_stanza(struc, stanza)
     return struc
 
+
 def patch_stanza(struc, diff):
-    '''Applies the diff stanza ``diff`` to the structure ``struc`` as
+    """Applies the diff stanza ``diff`` to the structure ``struc`` as
     a patch.
 
     Note that this function modifies ``struc`` in-place into the target
@@ -45,7 +47,7 @@ def patch_stanza(struc, diff):
 
     >>> patch_stanza((17, 3.141593, None), [[1], 3.14159265])
     (17, 3.14159265, None)
-    '''
+    """
     changeback = False
     if type(struc) is tuple:
         changeback = True
@@ -73,4 +75,3 @@ def patch_stanza(struc, diff):
     if changeback:
         struc = tuple(struc)
     return struc
-

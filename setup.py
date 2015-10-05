@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
-import sys, os
+import sys
+import os
 
 HERE = os.path.dirname(__file__)
 sys.path.insert(0, os.path.join(HERE, 'src'))
@@ -30,7 +31,7 @@ setup(
 
     classifiers=[
         'Development Status :: 4 - Beta',
-        
+
         'Intended Audience :: Developers',
 
         'License :: OSI Approved :: BSD License',
@@ -48,8 +49,8 @@ setup(
     packages=['json_delta'],
 
     scripts=['src/json_cat', 'src/json_diff', 'src/json_patch'],
-    
+
     test_suite="test.build_test_suite",
 
-    zip_safe=True
+    zip_safe=True, requires=['ujson']
 )
