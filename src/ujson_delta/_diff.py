@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
-# json_delta: a library for computing deltas between JSON-serializable
+# ujson_delta: a library for computing deltas between JSON-serializable
 # structures.
-# json_delta/_diff.py
+# ujson_delta/_diff.py
 #
 # Copyright 2012‒2015 Philip J. Roberts <himself@phil-roberts.name>.
 # BSD License applies; see the LICENSE file, or

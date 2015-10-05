@@ -1,15 +1,15 @@
 # -*- encoding: utf-8 -*-
-# json_delta: a library for computing deltas between JSON-serializable
+# ujson_delta: a library for computing deltas between JSON-serializable
 # structures.
-# json_delta/__init__.py
+# ujson_delta/__init__.py
 #
 # Copyright 2012‒2015 Philip J. Roberts <himself@phil-roberts.name>.
 # BSD License applies; see the LICENSE file, or
 # http://opensource.org/licenses/BSD-2-Clause
 """
-This is the main “library” for json_delta’s functionality.  Functions
+This is the main “library” for ujson_delta’s functionality.  Functions
 available within the namespace of this module are to be considered
-part of json_delta’s stable API, subject to change only after a lot
+part of ujson_delta’s stable API, subject to change only after a lot
 of noisy announcements and gnashing of teeth.
 
 The names of submodules begin with underscores because the same is not

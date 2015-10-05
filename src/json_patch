@@ -7,7 +7,7 @@ import argparse
 import re
 from contextlib import closing
 
-import json_delta
+import ujson_delta
 
 HEADER_PATTERN = re.compile(
     r'''
@@ -50,7 +50,7 @@ def parse_normal(diff):
         diff = ujson.loads(diff)
     except ValueError:
         return False
-    return json_delta._util.check_diff_structure(diff)
+    return ujson_delta._util.check_diff_structure(diff)
 
 
 def diff_if_any(diff, ns, norm_check=parse_normal):
@@ -111,7 +111,7 @@ def infer(ns):
                 print("Couldn't read structure and diff from standard input",
                       file=sys.stderr)
                 raise
-            ns.diff = diff_if_any(diff, ns, json_delta._util.check_diff_structure)
+            ns.diff = diff_if_any(diff, ns, ujson_delta._util.check_diff_structure)
             struc = None
             diff = None
             both = stdin
@@ -163,7 +163,7 @@ def main():
         specified, stdin will be expected to be a JSON structure: this
         could be a pair [struc, diff], in which case the output will
         be written to stdout.  Or it could be a unified diff with
-        headers, as output by json_delta -u.  In this case, the
+        headers, as output by ujson_delta -u.  In this case, the
         program reads the name of the file to patch against out of the
         headers.  Output, however, is always written to the file
         specified by the '--output' option (stdout by default).
@@ -191,7 +191,7 @@ def main():
     version = '''%(prog)s - part of json-delta {}
 Copyright 2012-2015 Philip J. Roberts <himself@phil-roberts.name>. 
 BSD License applies; see http://opensource.org/licenses/BSD-2-Clause
-'''.format(json_delta.__VERSION__)
+'''.format(ujson_delta.__VERSION__)
     parser.add_argument(
         '--version', action='version', version=version
     )
@@ -207,9 +207,9 @@ BSD License applies; see http://opensource.org/licenses/BSD-2-Clause
     struc, diff, both = infer(ns)
     with closing(ns.output) as out_f:
         if ns.unified:
-            ujson.dump(json_delta.load_and_upatch(struc, diff, both, reverse=ns.reverse), out_f)
+            ujson.dump(ujson_delta.load_and_upatch(struc, diff, both, reverse=ns.reverse), out_f)
         else:
-            ujson.dump(json_delta.load_and_patch(struc, diff, both), out_f)
+            ujson.dump(ujson_delta.load_and_patch(struc, diff, both), out_f)
     return 0
 
 

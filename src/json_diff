@@ -8,7 +8,7 @@ import time
 import os
 from contextlib import closing
 
-import json_delta
+import ujson_delta
 
 
 def udiff_headers(left, right):
@@ -70,7 +70,7 @@ def main():
     version = '''%(prog)s - part of json-delta {}
 Copyright 2012-2015 Philip J. Roberts <himself@phil-roberts.name>.
 BSD License applies; see http://opensource.org/licenses/BSD-2-Clause
-'''.format(json_delta.__VERSION__)
+'''.format(ujson_delta.__VERSION__)
     parser.add_argument(
         '--version', action='version', version=version
     )
@@ -81,7 +81,7 @@ BSD License applies; see http://opensource.org/licenses/BSD-2-Clause
         left_text = None
         right_text = None
         both_text = sys.stdin.read()
-        diff = json_delta.load_and_diff(both=both_text,
+        diff = ujson_delta.load_and_diff(both=both_text,
                                         verbose=namespace.verbose,
                                         minimal=namespace.fast)
     else:
@@ -90,14 +90,14 @@ BSD License applies; see http://opensource.org/licenses/BSD-2-Clause
             left_text = left_f.read()
             right_text = right_f.read()
         both_text = None
-        diff = json_delta.load_and_diff(left_text, right_text,
+        diff = ujson_delta.load_and_diff(left_text, right_text,
                                         verbose=namespace.verbose,
                                         minimal=namespace.fast)
     with closing(namespace.output) as out_f:
         if namespace.unified:
             for line in udiff_headers(namespace.left, namespace.right):
                 print(line, file=out_f)
-            for line in json_delta.load_and_udiff(left_text, right_text,
+            for line in ujson_delta.load_and_udiff(left_text, right_text,
                                                   both_text, diff):
                 print(line, file=out_f)
         else:

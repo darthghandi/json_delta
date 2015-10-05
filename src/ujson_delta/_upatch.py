@@ -8,7 +8,7 @@ from . import _patch
 
 
 def upatch(struc, udiff, reverse=False):
-    """Apply a patch of the form output by :py:func:`json_delta.udiff()` to the
+    """Apply a patch of the form output by :py:func:`ujson_delta.udiff()` to the
     structure ``struc``.
     """
     diff = reconstruct_diff(udiff, reverse)

@@ -1,0 +1,493 @@
+[
+ {
+  "be": true, 
+  "all": [
+   null, 
+   false, 
+   3.141592654, 
+   42, 
+   47, 
+   "ἄνδρα μοι ἔννεπε", 
+   "Nonesuch", 
+   [], 
+   [
+    "Wheels", 
+    "within", 
+    "wheels"
+   ], 
+   {
+    "Fires": "within fires"
+   }
+  ], 
+  "unicode": 2637, 
+  "keys": {
+   "I do": "think I'm funny", 
+   "Yes, since": "you ask"
+  }, 
+  "thing": "ummybobs", 
+  "JSON": [
+   {
+    "4": "ʃɚ", 
+    "Can": "Serialize this"
+   }, 
+   [
+    "孫", 
+    "子", 
+    "兵", 
+    "法"
+   ], 
+   [], 
+   null, 
+   true, 
+   2.718281828459045, 
+   6022141500000000000,
+   8675309, 
+   "Avogadro's number:", 
+   "Jenny's number; get it?"
+  ], 
+  "str": 1.3806503e-23, 
+  "or": 132922799578491587,
+  "types": "of", 
+  "must": null
+ }, 
+ [
+  "You", 
+  "would not believe", 
+  {
+   "a": 234251.23153562585, 
+   "that here I am": {
+    "doing": "it"
+   }, 
+   "my commitment": [
+    "to", 
+    "good", 
+    "coding", 
+    "practices"
+   ], 
+   "snowflake?": 56, 
+   "has been": [
+    "for", 
+    "me", 
+    "but", 
+    "such", 
+    "is"
+   ], 
+   "how dull": "putting", 
+   "I": true, 
+   "this test case": "together", 
+   "Aren't": null, 
+   "special": 2890
+  }, 
+  [
+   "", 
+   "", 
+   0, 
+   0, 
+   0.0, 
+   false, 
+   null, 
+   [], 
+   [], 
+   {}
+  ], 
+  [
+   "a", 
+   "a", 
+   1, 
+   1, 
+   1.0, 
+   true, 
+   null, 
+   [
+    "a"
+   ], 
+   [
+    1
+   ], 
+   {
+    "a": 1.0
+   }
+  ], 
+  null, 
+  false, 
+  3958986105982, 
+  -29351094615.163544, 
+  9223372036854775
+ ], 
+ [], 
+ null, 
+ true, 
+ 163135.16045239265, 
+ "That'll do", 
+ "pig", 
+ {
+  "is": "nonzero", 
+  "Suppose": "commonality", 
+  "than": "zero", 
+  "but": "less", 
+  "point": "five"
+ }, 
+ [
+  "Multiple", 
+  "additions", 
+  "to", 
+  "arrays"
+ ], 
+ [
+  "Multiple", 
+  "deletions", 
+  "from", 
+  "arrays", 
+  "are", 
+  "tested", 
+  "here"
+ ], 
+ [
+  "Deletion", 
+  "of", 
+  "a", 
+  "bunch", 
+  "of", 
+  "elements"
+ ], 
+ [
+  "Some basically irrelevant padding", 
+  0, 
+  1, 
+  0, 
+  1, 
+  0, 
+  1, 
+  0, 
+  1, 
+  0, 
+  1
+ ], 
+ [
+  "Replacement", 
+  "of", 
+  "an", 
+  "array", 
+  "with"
+ ], 
+ {
+  "🜢": "Stock racket has a problem with object keys past the basic multilingual plane."
+ }, 
+ {
+  "This": "test case", 
+  "is": "designed", 
+  "to": true, 
+  "the": 17, 
+  "udiff_dict": "function", 
+  "exercise": null
+ }, 
+ {
+  "gameState": {
+   "turns": [
+    {
+     "monsterHealth": 142, 
+     "potentialWin": 1, 
+     "symbols": [
+      0, 
+      0
+     ], 
+     "action": 1, 
+     "healToHero": 0, 
+     "heroHealth": 100, 
+     "actionCoins": 1, 
+     "damageToHero": 0, 
+     "damageToMonster": 8, 
+     "match": 0
+    }, 
+    {
+     "monsterHealth": 142, 
+     "potentialWin": 1, 
+     "symbols": [
+      4, 
+      0
+     ], 
+     "action": 0, 
+     "healToHero": 0, 
+     "heroHealth": 61, 
+     "actionCoins": 0, 
+     "damageToHero": 39, 
+     "damageToMonster": 0, 
+     "match": -1
+    }, 
+    {
+     "monsterHealth": 142, 
+     "potentialWin": 1, 
+     "symbols": [
+      5, 
+      0
+     ], 
+     "action": 0, 
+     "healToHero": 0, 
+     "heroHealth": 35, 
+     "actionCoins": 0, 
+     "damageToHero": 26, 
+     "damageToMonster": 0, 
+     "match": -1
+    }, 
+    {
+     "monsterHealth": 134, 
+     "potentialWin": 2, 
+     "symbols": [
+      0, 
+      0
+     ], 
+     "action": 1, 
+     "healToHero": 0, 
+     "heroHealth": 35, 
+     "actionCoins": 1, 
+     "damageToHero": 0, 
+     "damageToMonster": 8, 
+     "match": 0
+    }, 
+    {
+     "monsterHealth": 134, 
+     "potentialWin": 2, 
+     "symbols": [
+      5, 
+      5
+     ], 
+     "action": 8, 
+     "healToHero": 25, 
+     "heroHealth": 60, 
+     "actionCoins": 0, 
+     "damageToHero": 0, 
+     "damageToMonster": 0, 
+     "match": 5
+    }
+   ]
+  }
+ }, 
+ {
+  "a": [
+   0, 
+   1, 
+   2, 
+   3, 
+   4, 
+   5, 
+   6, 
+   7, 
+   8, 
+   9
+  ]
+ }, 
+ {
+  "a": {
+   "h": "i", 
+   "b": "c", 
+   "d": "e", 
+   "f": "g"
+  }
+ }, 
+ [
+  {
+   "a": "b", 
+   "e": "f"
+  }
+ ], 
+ [
+  {
+   "i": "j"
+  }, 
+  {
+   "a": "b"
+  }, 
+  {
+   "c": "d"
+  }, 
+  {
+   "e": "f"
+  }, 
+  {
+   "g": "h"
+  }
+ ], 
+ [
+  {
+   "a": "b"
+  }, 
+  {
+   "c": "d"
+  }, 
+  {
+   "e": "f"
+  }, 
+  {
+   "g": "h"
+  }
+ ], 
+ [
+  "First, we pad out so that length-comparison will not substitute a []-key diff", 
+  "a", 
+  "b", 
+  "This case will feature multiple", 
+  "deletions", 
+  "c", 
+  "Intertwingled with insertions here:", 
+  "d", 
+  "And here:", 
+  "e", 
+  "f", 
+  "Deletions and insertions will be from multiple", 
+  "positions consecutive", 
+  "g", 
+  "and not", 
+  "h", 
+  "We will also append:"
+ ], 
+ {
+  "‘Insert’ stanzas applied to objects work just like ‘modify’ stanzas": true
+ }, 
+ [
+  [
+   {
+    "": {
+     "": 11, 
+     "\u0019m\u0002aS(V\u001co": false, 
+     "ᜏƩ䉰鈟葓茽珐쁌雒": false, 
+     "䶦차⤝왜": "Od\u000f\u0007whs>o4G\\", 
+     "TI\u0015,B\u0007\u0019": -10, 
+     "}3!8UBFy\u0005RnU ": "Me3}`x", 
+     "箖": "\u0010{\u0012\u0001/<$Ox%\u0001RX", 
+     "o3": -5.551542407309399
+    }, 
+    "UYn\u001d?].;cA/07\t": [
+     14.544453539710322, 
+     "", 
+     2.0633965795594778, 
+     "imSD&\u0004eM&&", 
+     true, 
+     12.876304568700167
+    ], 
+    ",Pcki": {
+     "c": false
+    }, 
+    "捑䊿ᖄ状驌ӥ㠿䞂": {
+     "30J": "쏬ѩӛ仅"
+    }, 
+    "᳞䨄㰈᪊苷瞛﹄㾋るẞ坁衑௄": [
+     -9.311130645599013, 
+     true, 
+     13.098803910011846, 
+     false, 
+     true, 
+     "qX'2", 
+     -12, 
+     -2, 
+     0, 
+     "瑩ꇧˋ崾ᐘ熫㴥⭶븑⼎賜竹", 
+     "ϥ䵨뼟￦嶧礽氟酑싄ఓܧ막練", 
+     -8, 
+     "ꇑ쏍Ἔ᯾ͮ￯擲ු䷫", 
+     9.38030762391227, 
+     ""
+    ], 
+    "N@cK:XWJ\u0017kA+R}": {
+     "": true, 
+     "cg%": -4.947944826008072, 
+     "걾襵媄鳋靿贘렵妌翎볃蔐": -6.566866735183082, 
+     "*X!H,io": 7.973214110863466, 
+     "筐ើ진⺩㓫։쩨客빆＆㾓": 14
+    }, 
+    "㬓냀Ô兌ﮙퟳࠨ헝䴳薓": {
+     "Ⱔ쟏泣䀨疔ㅙ뀻坯": null, 
+     "~p\u0001w": true, 
+     "/A9|s n\t7td.\b": -0.6457874476810699
+    }, 
+    "]\u0011rSXPMe": [
+     false, 
+     null, 
+     3.1865789467379226
+    ], 
+    "ㄙ贷挣ᒯ": {
+     "*\u0001ITR\f'6k>\u000eT|": -10.59227530440366, 
+     "P:[C": true, 
+     "\ru OeZ\u000e\r": -5, 
+     "A\u0014\u001a\u0003^zNV/Yu%BS": -12, 
+     "丁鉁ᨇ봱י": false, 
+     "+;7\u0014N": "䟅ཱི䔡㰷쟋∔苸厍쉥쾘ἆ瞋럖", 
+     "I[K\u0016W": true, 
+     "-": -11
+    }, 
+    "䒨⤽袣ꖪ憪탐": {
+     "镑귯輅": "⊣椨頝", 
+     "ᥭ忪ᤄ䰗ၻ": -12, 
+     "὜镍负웆뒎퍁䯜ᰈ⹾": null, 
+     "퉎": -10
+    }, 
+    "\u000b\\?n\u0003W5S)$iWK@": {
+     "ぅ쑐秴ﯔﭩ໽각훲肛Ｊ跖碮": null, 
+     "椹ᙤ틚럟틧ᤉ驍磊㴞睌㯝": true, 
+     "=\b\u0001\u0001s": 4, 
+     "Il": null, 
+     "墀͋궊띡뒛ᅥ㠍㷘﨩ᦹꗭ": -13, 
+     "ﳐ袎嫢ɍ뗑皦᪩龸՛": 9.034219473434637
+    }, 
+    "sHm.2*FF": [
+     7.871277567835771, 
+     -3, 
+     "덪h坤埅耉貨榶﬇傁", 
+     15, 
+     "䙁猆鬟㠳綹͉礄宱嚾", 
+     "\\\u0004\u001c", 
+     "LZ2\u001b\u0004+rPJ\u000fL", 
+     15, 
+     14, 
+     false, 
+     null, 
+     null, 
+     -1, 
+     null
+    ]
+   }, 
+   7.585926888925922, 
+   "쭡濙Ჴᤃ㭚衋Ⲋ圅囓⮞", 
+   "ꊲ⠵漾Ⳑ⌂䅱૸쩲㬵ⵣ풟ﶷ荷"
+  ], 
+  "ἃ꾰", 
+  null, 
+  "ȗ砻闇㯛။勸", 
+  4, 
+  "<\u0003\u000f", 
+  -2, 
+  -12, 
+  false, 
+  null, 
+  null, 
+  [
+   " 쨥솁䈂Ʉ", 
+   false, 
+   5, 
+   12, 
+   {
+    "": null, 
+    "遈⦥촇㦢ꅈ䆚䋮遂鼒䔂": -1, 
+    "JPN\u0002)\"\u001b": null, 
+    "s-@VG\u0010oSH": {
+     "": true, 
+     "`": false, 
+     "⊶⾧嫭彬虑ᢱ㏘駂": 14.390221753118444, 
+     "⮕": -5.498165769339059, 
+     "礦羗툂덊㗤ꦜᴏ㢇愁纠풛陸㬐": 5, 
+     "M)\u001a1r": true, 
+     "䎑덦爤൓ω땷烼࠘䌏黢윭⧯": "NYEgpNY\u000e", 
+     "X3(": "|cj']UQ", 
+     "䬌掙㟫ٝ⇊逛艜Ἕ耡迃�嚹": "O^"
+    }, 
+    "炻뵦稜稼쵍Ṁ쀻蛞딒": null, 
+    "痙盒䵑": true, 
+    "칺쐊ᬒ": "ዝ吴᪎㧿✹Ћ", 
+    "ᙴ낡쉨㰖㒳ʙ茵": 15
+   }, 
+   6
+  ], 
+  null, 
+  true, 
+  "䳓䰖埠긷춓"
+ ]
+]

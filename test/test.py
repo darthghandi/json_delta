@@ -30,7 +30,7 @@ DOTDOT = os.path.abspath(os.path.join(HERE, '..'))
 MATERIAL_PATH = os.path.join(HERE, 'Material')
 
 sys.path.insert(0, os.path.join(DOTDOT, 'src'))
-import json_delta
+import ujson_delta
 
 
 def gather_material(dr=MATERIAL_PATH):
@@ -66,12 +66,12 @@ def load_material(category, index):
 
 
 MODULES = (
-    json_delta,
-    json_delta._diff,
-    json_delta._udiff,
-    json_delta._patch,
-    json_delta._upatch,
-    json_delta._util
+    ujson_delta,
+    ujson_delta._diff,
+    ujson_delta._udiff,
+    ujson_delta._patch,
+    ujson_delta._upatch,
+    ujson_delta._util
 )
 
 
@@ -100,10 +100,10 @@ class MinimalDiffCase(PerIndexCase):
     cats = ('case', 'target')
 
     def runTest(self):
-        diff = json_delta.load_and_diff(self.case, self.target,
+        diff = ujson_delta.load_and_diff(self.case, self.target,
                                         minimal=True, verbose=True)
         self.assertEquals(
-            json.loads(self.target), json_delta.patch(json.loads(self.case), diff)
+            json.loads(self.target), ujson_delta.patch(json.loads(self.case), diff)
         )
 
 
@@ -111,10 +111,10 @@ class NonMinimalDiffCase(PerIndexCase):
     cats = ('case', 'target')
 
     def runTest(self):
-        diff = json_delta.load_and_diff(self.case, self.target,
+        diff = ujson_delta.load_and_diff(self.case, self.target,
                                         minimal=False, verbose=True)
         self.assertEquals(
-            json.loads(self.target), json_delta.patch(json.loads(self.case), diff)
+            json.loads(self.target), ujson_delta.patch(json.loads(self.case), diff)
         )
 
 
@@ -124,7 +124,7 @@ class PatchCase(PerIndexCase):
     def runTest(self):
         self.assertEquals(
             json.loads(self.target),
-            json_delta.load_and_patch(self.case, self.diff)
+            ujson_delta.load_and_patch(self.case, self.diff)
         )
 
 
@@ -132,9 +132,9 @@ class UdiffCase(PerIndexCase):
     cats = ('case', 'target')
 
     def runTest(self):
-        udiff = '\n'.join(json_delta.load_and_udiff(self.case, self.target))
+        udiff = '\n'.join(ujson_delta.load_and_udiff(self.case, self.target))
         self.assertEquals(
-            json.loads(self.target), json_delta.upatch(
+            json.loads(self.target), ujson_delta.upatch(
                 json.loads(self.case), udiff
             )
         )
@@ -145,7 +145,7 @@ class UpatchCase(PerIndexCase):
 
     def runTest(self):
         self.assertEquals(
-            json.loads(self.target), json_delta.load_and_upatch(
+            json.loads(self.target), ujson_delta.load_and_upatch(
                 self.case, json.dumps(self.udiff)
             )
         )
@@ -156,7 +156,7 @@ class ReverseUpatchCase(PerIndexCase):
 
     def runTest(self):
         self.assertEquals(
-            json.loads(self.case), json_delta.load_and_upatch(
+            json.loads(self.case), ujson_delta.load_and_upatch(
                 self.target, json.dumps(self.udiff), reverse=True
             )
         )

@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
-# json_delta: a library for computing deltas between JSON-serializable
+# ujson_delta: a library for computing deltas between JSON-serializable
 # structures.
-# json_delta/_util.py
+# ujson_delta/_util.py
 #
 # Copyright 2012‒2015 Philip J. Roberts <himself@phil-roberts.name>.
 # BSD License applies; see the LICENSE file, or
@@ -25,6 +25,7 @@ except NameError:
     pass
 NONTERMINALS = (list, dict)
 SERIALIZABLE_TYPES = TERMINALS + NONTERMINALS
+ENCODINGS = ('utf_8', 'utf_16_le', 'utf_16_be', 'utf_32_le', 'utf_32_be')
 
 # ----------------------------------------------------------------------
 # Utility functions
@@ -41,7 +42,7 @@ def decode_json(file_or_str):
     '''Decode a JSON file-like object or string.
 
     The following doctest is probably pointless as documentation.  It is
-    here so json_delta can claim 100% code coverage for its test suite!
+    here so ujson_delta can claim 100% code coverage for its test suite!
 
     >>> try:
     ...     from StringIO import StringIO
