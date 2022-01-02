@@ -11,7 +11,7 @@ Utility functions and constants used by all submodules.
 '''
 from __future__ import print_function, unicode_literals
 
-import ujson
+from . import ujson
 
 try:
     Basestring = basestring

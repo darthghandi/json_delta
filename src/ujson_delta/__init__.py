@@ -20,7 +20,7 @@ Requires Python 2.7 or newer (including Python 3).
 """
 from __future__ import unicode_literals
 import sys
-import ujson
+import mujson as ujson
 
 __VERSION__ = '1.1.3'
 

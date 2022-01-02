@@ -1,0 +1,11 @@
+__pycache__
+*.pyc
+*.pyo
+/src/*.egg-info
+*.srctrlbm
+*.srctrldb
+build
+dist
+.eggs
+monkeytype.sqlite3
+/.ipynb_checkpoints

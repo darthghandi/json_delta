@@ -1,10 +1,9 @@
 from __future__ import print_function, unicode_literals
 from copy import deepcopy
-import ujson
 
 from ._util import Basestring, key_tracker, in_array, nearest_of, follow_path
 from ._diff import sort_stanzas
-from . import _patch
+from . import _patch, ujson
 
 
 def upatch(struc, udiff, reverse=False):

@@ -1,7 +1,8 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """json_cat(1) - Concatenate files together as a JSON array"""
 import sys
-import ujson
+
+from .. import ujson
 
 
 def decode_or_str(flo):

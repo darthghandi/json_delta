@@ -30,7 +30,7 @@ DOTDOT = os.path.abspath(os.path.join(HERE, '..'))
 MATERIAL_PATH = os.path.join(HERE, 'Material')
 
 sys.path.insert(0, os.path.join(DOTDOT, 'src'))
-import ujson_delta
+import json_delta as ujson_delta
 
 
 def gather_material(dr=MATERIAL_PATH):
