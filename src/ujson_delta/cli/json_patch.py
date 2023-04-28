@@ -1,13 +1,13 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 from __future__ import print_function
-import ujson
 import sys
 import os
 import argparse
 import re
 from contextlib import closing
 
-import ujson_delta
+from .. import __VERSION__, load_and_patch, load_and_upatch, ujson
+from .._util import check_diff_structure
 
 HEADER_PATTERN = re.compile(
     r'''
@@ -50,7 +50,7 @@ def parse_normal(diff):
         diff = ujson.loads(diff)
     except ValueError:
         return False
-    return ujson_delta._util.check_diff_structure(diff)
+    return check_diff_structure(diff)
 
 
 def diff_if_any(diff, ns, norm_check=parse_normal):
@@ -111,7 +111,7 @@ def infer(ns):
                 print("Couldn't read structure and diff from standard input",
                       file=sys.stderr)
                 raise
-            ns.diff = diff_if_any(diff, ns, ujson_delta._util.check_diff_structure)
+            ns.diff = diff_if_any(diff, ns, check_diff_structure)
             struc = None
             diff = None
             both = stdin
@@ -191,7 +191,7 @@ def main():
     version = '''%(prog)s - part of json-delta {}
 Copyright 2012-2015 Philip J. Roberts <himself@phil-roberts.name>. 
 BSD License applies; see http://opensource.org/licenses/BSD-2-Clause
-'''.format(ujson_delta.__VERSION__)
+'''.format(__VERSION__)
     parser.add_argument(
         '--version', action='version', version=version
     )
@@ -207,9 +207,9 @@ BSD License applies; see http://opensource.org/licenses/BSD-2-Clause
     struc, diff, both = infer(ns)
     with closing(ns.output) as out_f:
         if ns.unified:
-            ujson.dump(ujson_delta.load_and_upatch(struc, diff, both, reverse=ns.reverse), out_f)
+            ujson.dump(load_and_upatch(struc, diff, both, reverse=ns.reverse), out_f)
         else:
-            ujson.dump(ujson_delta.load_and_patch(struc, diff, both), out_f)
+            ujson.dump(load_and_patch(struc, diff, both), out_f)
     return 0
 
 

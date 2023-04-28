@@ -1,14 +1,13 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """json_diff(1) - Compute deltas between JSON-serialized objects."""
 from __future__ import print_function, unicode_literals
-import ujson
 import sys
 import argparse
 import time
 import os
 from contextlib import closing
 
-import ujson_delta
+from .. import __VERSION__, load_and_diff, load_and_udiff, ujson
 
 
 def udiff_headers(left, right):
@@ -70,7 +69,7 @@ def main():
     version = '''%(prog)s - part of json-delta {}
 Copyright 2012-2015 Philip J. Roberts <himself@phil-roberts.name>.
 BSD License applies; see http://opensource.org/licenses/BSD-2-Clause
-'''.format(ujson_delta.__VERSION__)
+'''.format(__VERSION__)
     parser.add_argument(
         '--version', action='version', version=version
     )
@@ -81,7 +80,7 @@ BSD License applies; see http://opensource.org/licenses/BSD-2-Clause
         left_text = None
         right_text = None
         both_text = sys.stdin.read()
-        diff = ujson_delta.load_and_diff(both=both_text,
+        diff = load_and_diff(both=both_text,
                                         verbose=namespace.verbose,
                                         minimal=namespace.fast)
     else:
@@ -90,14 +89,14 @@ BSD License applies; see http://opensource.org/licenses/BSD-2-Clause
             left_text = left_f.read()
             right_text = right_f.read()
         both_text = None
-        diff = ujson_delta.load_and_diff(left_text, right_text,
+        diff = load_and_diff(left_text, right_text,
                                         verbose=namespace.verbose,
                                         minimal=namespace.fast)
     with closing(namespace.output) as out_f:
         if namespace.unified:
             for line in udiff_headers(namespace.left, namespace.right):
                 print(line, file=out_f)
-            for line in ujson_delta.load_and_udiff(left_text, right_text,
+            for line in load_and_udiff(left_text, right_text,
                                                   both_text, diff):
                 print(line, file=out_f)
         else:

@@ -22,7 +22,7 @@ with open(os.path.join(HERE, 'local_binary_info.json')) as f:
 
 sys.path.insert(0, os.path.join(DOTDOT, 'src'))
 print(sys.path)
-from ujson_delta import _util as util
+from json_delta import _util as util
 
 COMPACT_CASES = (0, 11, 12, 19)
 

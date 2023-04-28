@@ -23,12 +23,12 @@ yielded by ``left_lines[i]`` should begin with ``'-'``, and all
 lines yielded by ``right_lines[i]`` should begin with ``'+'``.
 """
 from __future__ import print_function, unicode_literals
+from . import ujson
 from ._util import TERMINALS, in_one_level, uniquify, Basestring
 from ._diff import diff
 
 from functools import partial
 import copy
-import ujson
 import itertools
 
 
